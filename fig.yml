@@ -1,0 +1,20 @@
+db:
+  image: postgres
+  ports:
+    - 5432
+  environment:
+    POSTGRES_USER: pg
+    POSTGRES_PASSWORD: pg
+  volumes:
+    - "data/pg:/var/lib/postgresql/data"
+
+app:
+  build: .
+  links:
+    - "db:db"
+  environment:
+    DATABASE_URL: postgres://pg:pg@db/fantasy
+  volumes:
+    - ".:/app"
+    - "dockergems:/usr/local/bundle"
+
